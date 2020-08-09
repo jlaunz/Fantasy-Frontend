@@ -21,7 +21,7 @@ import io from 'socket.io-client';
 import playBack from '../playBack';
 
 
-const socket = io('http://localhost:1002');
+const socket = io();
 
 let needNotify = false;
 

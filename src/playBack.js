@@ -20,7 +20,7 @@ function insertTag() {
 function getTokenFromServer(partyId) {
     _partyId = partyId;
 
-    let response = syncRequest('GET', 'http://localhost:1000/refresh/' + partyId, {
+    let response = syncRequest('GET', 'https://partymusicapp.herokuapp.com/refresh/' + partyId, {
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json;charset=utf-8'

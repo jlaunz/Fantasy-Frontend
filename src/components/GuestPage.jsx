@@ -12,14 +12,14 @@ import {updatePlaylist,
     updateRoomInfo,
     updateActiveMusic,
     restoreDefault,
-    updateActiveMusicState 
+    updateActiveMusicState
 } from '../redux/actions';
 import io from 'socket.io-client';
 import { MdAdd } from 'react-icons/md';
 import { MdCheck } from 'react-icons/md';
 
 
-const socket = io('http://localhost:1002');
+const socket = io();
 
 let needNotify = false;
 
@@ -188,7 +188,7 @@ class ConnectGuestPage extends React.Component {
 
                 <div className={'content_container'}>
                     <SearchBar GetResult={this.GetResult} ref={this.searchRef}/>
-                    
+
                     <div className={'page'}>
                         <div className={'search-results ' + (this.state.active ? '' : 'hidden') } onClick={() => {
                             this.setState({ active: false });

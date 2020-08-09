@@ -1,4 +1,4 @@
-const prefix = 'http://localhost:1000';
+const prefix = 'https://partymusicapp.herokuapp.com';
 
 
 
@@ -14,7 +14,7 @@ function isLogin() {
 
         fetch(prefix + '/party/', {
             method: 'GET',
-            mode: 'cors',
+            // //mode: 'cors',
             credentials: 'include',
             headers: {
                 Accept: 'application/json',
@@ -42,7 +42,7 @@ function isLogin() {
 function createParty() {
     return fetch(prefix + '/party/', {
         method: 'GET',
-        mode: 'cors',
+        //mode: 'cors',
         credentials: 'include',
         headers: {
             Accept: 'application/json',
@@ -58,7 +58,7 @@ function searchItem(searchItem) {
     let url = prefix + '/search?q=' + searchItem + '&type=track&limit=10';
     return fetch(url, {
         method: 'GET',
-        mode: 'cors',
+        //mode: 'cors',
         credentials: 'include',
         headers: {
             Accept: 'application/json',
@@ -129,7 +129,7 @@ function checkPartyCode(partyCode){
 
     return fetch(url, {
         method: 'GET',
-        mode: 'cors',
+        //mode: 'cors',
         headers: {
             Accept: 'application/json',
             'Content-Type' : 'application/json;charset=utf-8'

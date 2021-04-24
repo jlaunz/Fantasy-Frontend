@@ -140,3 +140,5 @@ export default {
     uploadPlayList,
     checkPartyCode,
 }
+
+export const serverURL = prefix

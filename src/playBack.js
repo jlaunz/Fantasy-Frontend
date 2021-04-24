@@ -1,10 +1,10 @@
+import { serverURL } from './api'
 const syncRequest = require('sync-request')
 
 let _token = 'oauth.getToken()'
 let readyToPlay = false
 let deviceId = null
 let _partyId = null
-let serverAddress = 'http://localhost:1000/'
 
 function insertTag() {
     var my_awesome_script = document.createElement('script')
@@ -20,7 +20,7 @@ function insertTag() {
 function getTokenFromServer(partyId) {
     _partyId = partyId
 
-    let response = syncRequest('GET', serverAddress + 'refresh/' + partyId, {
+    let response = syncRequest('GET', `${serverURL}/refresh/${partyId}`, {
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json;charset=utf-8',

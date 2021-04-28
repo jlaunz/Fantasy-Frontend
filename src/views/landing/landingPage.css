@@ -1,5 +1,5 @@
 html {
-    background-image: url("../image/bg.png");
+    background-image: url('../../image/bg.png');
     border-image-repeat: repeat;
     background-size: 500px;
     background-color: #151619;
@@ -50,7 +50,7 @@ html {
     font-size: 1.5rem;
     outline: 0;
     background: transparent;
-    box-shadow:none;
+    box-shadow: none;
 }
 
 .arrow {
@@ -66,16 +66,31 @@ html {
 }
 
 @keyframes shake {
-    0%   {left:0px; top:0px;}
-    25%  {left:10px; top:0px;}
-    50%  {left:0px; top:0px;}
-    75%  {left:10px; top:0px;}
-    100% {left:0px; top:0px;}
+    0% {
+        left: 0px;
+        top: 0px;
+    }
+    25% {
+        left: 10px;
+        top: 0px;
+    }
+    50% {
+        left: 0px;
+        top: 0px;
+    }
+    75% {
+        left: 10px;
+        top: 0px;
+    }
+    100% {
+        left: 0px;
+        top: 0px;
+    }
 }
 
 .error {
     font-size: 1rem;
-    color:#ef5350;
+    color: #ef5350;
     margin-bottom: 5%;
     position: relative;
     animation-name: shake;

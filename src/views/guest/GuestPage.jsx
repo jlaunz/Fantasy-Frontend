@@ -1,11 +1,11 @@
 import React from 'react'
-import SearchBar from './SearchBar'
-import './hostPage.css'
-import SideBar from './SideBar'
-import MusicLi from './MusicLi'
+import SearchBar from '../../components/SearchBar'
+import '../host/hostPage.css'
+import SideBar from '../../components/SideBar/SideBar'
+import MusicLi from '../../components/MusicLi/MusicLi'
 import { connect } from 'react-redux'
-import api from '../api'
-import util from '../util'
+import api from '../../api'
+import util from '../../util'
 import {
     updatePlaylist,
     play,
@@ -14,8 +14,8 @@ import {
     updateActiveMusic,
     restoreDefault,
     updateActiveMusicState,
-} from '../redux/actions'
-import { createSocket } from '../websocket'
+} from '../../redux/actions'
+import { createSocket } from '../../websocket'
 import { MdAdd } from 'react-icons/md'
 import { MdCheck } from 'react-icons/md'
 

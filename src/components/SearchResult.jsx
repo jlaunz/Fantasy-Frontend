@@ -1,6 +1,5 @@
 import React from 'react'
-import { MdAdd } from 'react-icons/md'
-import { MdCheck } from 'react-icons/md'
+import { MdAdd, MdCheck } from 'react-icons/md'
 
 const SearchResult = ({
     tracks,

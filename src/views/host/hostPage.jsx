@@ -116,21 +116,24 @@ class ConnectHostPage extends React.Component {
         needNotify = true
     }
 
-    GetResult(searchItem) {
-        if (searchItem) {
-            api.searchItem(searchItem).then((array) => {
-                if (this.searchRef.current.state.searching) {
-                    console.log('search outcome: ', array)
-                    this.setState({
-                        tracks: array,
-                        active: true,
-                    })
-                }
-            })
-        } else {
-            this.setState({ tracks: [] })
-            this.setState({ active: false })
+    async GetResult(searchItem) {
+        if (!searchItem) {
+            return this.setState({ tracks: [], active: false })
         }
+
+        let rawSearchResult = await api.searchItem(searchItem)
+        let resultWithSelectedFlag = rawSearchResult.map((track) => {
+            track.selected =
+                this.props.musicInfo.findIndex(
+                    (selectedTrack) => selectedTrack.uri === track.uri
+                ) > -1
+            return track
+        })
+
+        this.setState({
+            tracks: resultWithSelectedFlag,
+            active: true,
+        })
     }
 
     componentDidMount() {
@@ -196,39 +199,36 @@ class ConnectHostPage extends React.Component {
         needNotify = true
     }
 
-    selectSearchItem(item) {
-        let musicInfoCopy = Array.from(this.props.musicInfo)
-        let i = musicInfoCopy.findIndex((e) => e.uri === item.uri)
+    transformSpotifyTrackObject(track) {
+        return {
+            play_state: 0,
+            votes: 0,
+            name: track['trackName'],
+            uri: track['uri'],
+            artist: track['artistName'],
+            album: track['albumName'],
+            albumIcon: {
+                small: track.albumIcon['small'].url,
+                large: track.albumIcon['large'].url,
+            },
+            selected: false,
+        }
+    }
+
+    selectSearchItem(track) {
+        let musicInfo = this.props.musicInfo
+        let i = musicInfo.findIndex((e) => e.uri === track.uri)
+
         if (i !== -1) {
-            let liked = this.trackIsLiked(musicInfoCopy[i].uri)
-            if (liked) {
-                this.removeTrackFromLiked(musicInfoCopy[i].uri)
-                musicInfoCopy[i].votes -= 1
-                item.selected = false
-                alert('This song already in the queue, you just **unvoted**')
-            } else {
-                this.addTrackToLiked(musicInfoCopy[i].uri)
-                musicInfoCopy[i].votes += 1
-                item.selected = true
-                alert('This song already in the queue, you just **voted**')
-            }
+            track.selected = false
+            musicInfo.splice(i, 1)
         } else {
-            musicInfoCopy.push({
-                play_state: 0,
-                votes: 0,
-                name: item['trackName'],
-                uri: item['uri'],
-                artist: item['artistName'],
-                album: item['albumName'],
-                albumIcon: {
-                    small: item.albumIcon['small'].url,
-                    large: item.albumIcon['large'].url,
-                },
-            })
-            item.selected = true
+            let appTrackObject = this.transformSpotifyTrackObject(track)
+            appTrackObject.selected = true
+            musicInfo.push(appTrackObject)
         }
 
-        this.props.dispatch(updatePlaylist(musicInfoCopy))
+        this.props.dispatch(updatePlaylist([...musicInfo]))
         needNotify = true
     }
 

@@ -19,6 +19,7 @@ import {
 } from '../../redux/actions'
 import { createSocket } from '../../websocket'
 import playBack from '../../playBack'
+import SearchResult from '../../components/SearchResult'
 
 let needNotify = false
 let socket = createSocket()
@@ -267,73 +268,15 @@ class ConnectHostPage extends React.Component {
 
                     <div className={'page'}>
                         {/* search result container */}
-
-                        <div
-                            className={
-                                'search-results ' +
-                                (this.state.active ? '' : 'hidden')
+                        <SearchResult
+                            tracks={this.state.tracks}
+                            visible={this.state.active}
+                            selectSearchItem={this.selectSearchItem.bind(this)}
+                            setVisible={(isVisible) =>
+                                this.setState({ active: isVisible })
                             }
-                            onClick={() => {
-                                this.setState({ active: false })
-                                this.searchRef.current.state.searching = false
-                                // this.savePlaylist();
-                            }}
-                        >
-                            {/* search result items */}
-                            {this.state.tracks.map((item, index) => {
-                                return (
-                                    <div
-                                        className={'result'}
-                                        key={index}
-                                        onClick={(event) => {
-                                            this.selectSearchItem(item)
-                                            event.stopPropagation()
-                                        }}
-                                    >
-                                        <div className="img">
-                                            <img src={item.albumArt} alt="" />
-                                        </div>
-                                        <div className={'info'}>
-                                            <div
-                                                className={'top'}
-                                                title={item.trackName}
-                                            >
-                                                {item.trackName}
-                                            </div>
-                                            <div className={'bottom'}>
-                                                <span
-                                                    className={'album-name'}
-                                                    title={item.albumName}
-                                                >
-                                                    {item.albumName}
-                                                </span>
-                                                <span className={'dot'}>.</span>
-                                                <span className={'artist-name'}>
-                                                    {item.artistName}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div
-                                            className={'addSong'}
-                                            onClick={(event) => {
-                                                this.selectSearchItem(item)
-                                                event.stopPropagation()
-                                            }}
-                                        >
-                                            {item.selected ? (
-                                                <MdCheck className={'icon'}>
-                                                    {' '}
-                                                </MdCheck>
-                                            ) : (
-                                                <MdAdd
-                                                    className={'icon'}
-                                                ></MdAdd>
-                                            )}
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
+                        ></SearchResult>
+
                         <div className={'tracklist'}>
                             {
                                 this.props.musicInfo.length !== 0 ? (

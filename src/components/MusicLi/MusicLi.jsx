@@ -8,7 +8,9 @@ import { connect } from 'react-redux'
 class MusicLi extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            additonalClassNames: [],
+        }
     }
 
     musicStateText(props) {
@@ -55,11 +57,30 @@ class MusicLi extends React.Component {
         }
     }
 
+    componentDidUpdate() {
+        console.log('updated index: ', this.props.index, ' updated!')
+    }
+
+    componentWillMount() {
+        this.setState({
+            additonalClassNames: [
+                ...this.state.additonalClassNames,
+                'animate__animated',
+                'animate__fadeInUp',
+            ],
+        })
+        setTimeout(() => {
+            this.setState({
+                additonalClassNames: [],
+            })
+        }, 500)
+    }
+
     render() {
         return (
             <div
                 className={
-                    'musicli ' + (this.props.index % 2 === 0 ? 'even' : '')
+                    'musicli ' + this.state.additonalClassNames.join(' ')
                 }
             >
                 <div className="img">

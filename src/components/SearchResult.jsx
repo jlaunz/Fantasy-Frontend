@@ -34,7 +34,7 @@ const SearchResultItem = ({ track, selectSearchItem, index, ...props }) => {
             className={'result'}
             key={index}
             onClick={(event) => {
-                this.selectSearchItem(track)
+                selectSearchItem(track)
                 event.stopPropagation()
             }}
         >
@@ -58,7 +58,7 @@ const SearchResultItem = ({ track, selectSearchItem, index, ...props }) => {
             <div
                 className={'addSong'}
                 onClick={(event) => {
-                    this.selectSearchItem(track)
+                    selectSearchItem(track)
                     event.stopPropagation()
                 }}
             >

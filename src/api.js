@@ -1,6 +1,6 @@
 const prefix =
     process.env.NODE_ENV === 'production'
-        ? 'https://fantasymu.herokuapp.com'
+        ? 'https://fantasybackend.herokuapp.com'
         : 'http://localhost:1000'
 
 function login() {

@@ -129,73 +129,79 @@ class LandingPage extends React.Component {
     }
 
     render() {
-        let content
-        if (!this.state.joining && !this.state.displayLogin) {
-            content = (
-                <div className={'landing'}>
-                    <button
-                        className={`button animateIn main`}
-                        onClick={this.create}
-                    >
-                        CREATE PARTY
-                    </button>
+        let DefaultContent = (
+            <div className={'landing'}>
+                <button
+                    className={`button animateIn main`}
+                    onClick={this.create}
+                >
+                    CREATE PARTY
+                </button>
 
+                <button
+                    className={`button main`}
+                    onClick={this.changeIntention.bind(this)}
+                >
+                    <span>JOIN PARTY</span>
+                </button>
+            </div>
+        )
+
+        let Joining = (
+            <div className={'joining'}>
+                <div className={'inputArea'}>
                     <button
-                        className={`button main`}
+                        className={'arrow'}
                         onClick={this.changeIntention.bind(this)}
                     >
-                        <span>JOIN PARTY</span>
+                        <FaArrowLeft />
                     </button>
-                </div>
-            )
-        } else if (this.state.joining && !this.state.displayLogin) {
-            content = (
-                <div className={'joining'}>
-                    <div className={'inputArea'}>
-                        <button
-                            className={'arrow'}
-                            onClick={this.changeIntention.bind(this)}
-                        >
-                            <FaArrowLeft />
-                        </button>
 
-                        <input
-                            className={'codeInput'}
-                            type={'text'}
-                            placeholder={'ENTER CODE'}
-                            onChange={this.inputChange.bind(this)}
-                        />
-                    </div>
-                    <button
-                        className={`button animateIn main`}
-                        onClick={this.joinParty.bind(this)}
-                    >
-                        JOIN
-                    </button>
+                    <input
+                        className={'codeInput'}
+                        type={'text'}
+                        placeholder={'ENTER CODE'}
+                        onChange={this.inputChange.bind(this)}
+                    />
                 </div>
-            )
+                <button
+                    className={`button animateIn main`}
+                    onClick={this.joinParty.bind(this)}
+                >
+                    JOIN
+                </button>
+            </div>
+        )
+
+        let NeedLogin = (
+            <div className={'creating'}>
+                <button
+                    className={'button animateIn main'}
+                    onClick={() => this.login()}
+                >
+                    LOGIN
+                </button>
+                <button
+                    className={`button animateIn main`}
+                    onClick={() => {
+                        this.setState({
+                            displayLogin: false,
+                            joining: true,
+                        })
+                    }}
+                >
+                    JOIN PARTY
+                </button>
+            </div>
+        )
+
+        let content
+        if (!this.state.joining && !this.state.displayLogin) {
+            content = DefaultContent
+        } else if (this.state.joining && !this.state.displayLogin) {
+            content = Joining
         } else if (this.state.displayLogin) {
-            content = (
-                <div className={'creating'}>
-                    <button
-                        className={'button animateIn main'}
-                        onClick={() => this.login()}
-                    >
-                        LOGIN
-                    </button>
-                    <button
-                        className={`button animateIn main`}
-                        onClick={() => {
-                            this.setState({
-                                displayLogin: false,
-                                joining: true,
-                            })
-                        }}
-                    >
-                        JOIN PARTY
-                    </button>
-                </div>
-            )
+            content = NeedLogin
         }
 
         return (
